@@ -5,3 +5,9 @@ export function getNameInitials(name){
    }
    return splitname[0][0];
 }
+/*eslint-disable*/
+export function transformtoarrwithid(snapval){
+   return snapval ? Object.keys(snapval).map(roomId=>{
+      return {...snapval[roomId],id:roomId}
+   }):[]
+}
