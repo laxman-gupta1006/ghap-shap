@@ -1,4 +1,4 @@
-import React,{useState,createContext,useEffect} from 'react'
+import React,{useState,createContext,useEffect,useContext} from 'react'
 import { database } from '../misc/Firebase';
 import { transformtoarrwithid } from '../misc/Helper';
 /*eslint-disable*/
@@ -19,3 +19,4 @@ return <RoomContext.Provider value={room}>
    {children}
 </RoomContext.Provider>
 }
+export const useRoom = () =>useContext(RoomContext)

@@ -37,6 +37,7 @@ export const CreateChatRoomBtn = () => {
     const newRoomDate = {
       ...formvalue,
       createdAt: firebase.database.ServerValue.TIMESTAMP,
+      lastMessage:null,
     };
     try {
       await database.ref('rooms').push(newRoomDate);
