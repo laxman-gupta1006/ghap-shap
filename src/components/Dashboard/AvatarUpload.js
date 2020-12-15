@@ -2,7 +2,7 @@ import React,{useState,useRef} from 'react';
 import AvatarEditor from 'react-avatar-editor'
 import { Alert, Button, Modal } from 'rsuite';
 import { useModalState} from '../../misc/CustomHook';
-import { auth, database, storage } from '../../misc/Firebase';
+import { database, storage } from '../../misc/Firebase';
 import {useProfile} from '../../context/profile.context';
 import { ProfileAvatar } from './ProfileAvatar';
 import { getUserUpdate } from '../../misc/Helper';
@@ -39,7 +39,7 @@ export const AvatarUpload = () => {
         cacheControl:`public , max-age=${3600*24*3}`
       });
       const downloadurl = await uploadAvatar.ref.getDownloadURL();
-      const updates = await getUserUpdate(auth.currentUser.uid,'avatar',downloadurl,database)
+      const updates = await getUserUpdate(profile.uid,'avatar',downloadurl,database)
       await database.ref().update(updates)
       Alert.info("Avatar Uploaded",4000)
       setisLoading(false);

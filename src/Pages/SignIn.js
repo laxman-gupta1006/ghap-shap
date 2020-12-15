@@ -10,6 +10,7 @@ function SignIn() {
         if(additionalUserInfo.isNewUser){
         await database.ref(`/profiles/${user.uid}`).set({
             name:user.displayName,
+            avatar:user.photoURL,
             createdAt:firebase.database.ServerValue.TIMESTAMP,
          })
         }

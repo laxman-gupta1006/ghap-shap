@@ -24,7 +24,13 @@
             ".read":true,
               ".write":true
           }
+      },
+  "status":{
+              "$user_id":{
+        ".read": "auth!==null",
+        ".write":"$user_id===auth.uid"
       }
+  }
       },
     ".read": true,
     ".write":true
