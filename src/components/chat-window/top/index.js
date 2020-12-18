@@ -7,21 +7,36 @@ import EditRoomBtn from './EditRoomBtn';
 import { RoomInfo } from './RoomInfo';
 
 const ChatTop = () => {
-   const name=useCurrentRoom(v=>v.name);
-   const isMobile = useMediaQuery('(max-width:992px)')
-  return <div>
-     <div className="d-flex justify-content-between align-items-center">
+  const name = useCurrentRoom(v => v.name);
+  const isMobile = useMediaQuery('(max-width:992px)');
+  const isAdmin = useCurrentRoom(v => v.isAdmin);
+  return (
+    <div>
+      <div className="d-flex justify-content-between align-items-center">
         <h4>
-           <Icon componentClass={Link} to="/" icon="arrow-circle-left" size="2x" className={isMobile ? 'd-inline-block p-0 mr-2 text-blue link-unstyled':'d-none'} />
-           <span className="text-disappear">{name}</span>
+          <Icon
+            componentClass={Link}
+            to="/"
+            icon="arrow-circle-left"
+            size="2x"
+            className={
+              isMobile
+                ? 'd-inline-block p-0 mr-2 text-blue link-unstyled'
+                : 'd-none'
+            }
+          />
+          <span className="text-disappear">{name}</span>
         </h4>
-        <ButtonToolbar className="ws-nowrap"><EditRoomBtn /></ButtonToolbar>
-     </div>
-   <div className="d-flex justify-content-between align-items-center">
-   <span>todo</span>
-   <RoomInfo/>
-   </div>
-     </div>;
+        <ButtonToolbar className="ws-nowrap">
+          {isAdmin && <EditRoomBtn />}
+        </ButtonToolbar>
+      </div>
+      <div className="d-flex justify-content-between align-items-center">
+        <span>todo</span>
+        <RoomInfo />
+      </div>
+    </div>
+  );
 };
 
 export default ChatTop;

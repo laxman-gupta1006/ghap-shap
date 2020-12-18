@@ -6,6 +6,8 @@ import ChatTop from '../../components/chat-window/top';
 import Messages from '../../components/chat-window/messages';
 import { useRoom } from '../../context/Rooms.context';
 import { CurrentRoomProvider } from '../../context/Current-room.context';
+import { auth } from '../../misc/Firebase';
+import { transformtoarr } from '../../misc/Helper';
 
 export const Chat = () => {
    const {chatId}=useParams();
@@ -19,8 +21,10 @@ export const Chat = () => {
       return <h6 className="text-center mt-page">Chat {chatId} not found</h6>;
    }
    const {name,discription}=currentRoom
+   const admins=transformtoarr(currentRoom.admins)
+   const isAdmin = admins.includes(auth.currentUser.uid)
    const currentRoomData ={
-      name,discription
+      name,discription,admins,isAdmin
    }
   return (
     <CurrentRoomProvider data={currentRoomData}>

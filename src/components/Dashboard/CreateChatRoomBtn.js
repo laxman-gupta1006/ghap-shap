@@ -11,7 +11,7 @@ import {
   Alert,
 } from 'rsuite';
 import firebase from 'firebase/app';
-import { database } from '../../misc/Firebase';
+import { auth, database } from '../../misc/Firebase';
 import { useModalState } from '../../misc/CustomHook';
 /*eslint-disable*/
 export const CreateChatRoomBtn = () => {
@@ -38,6 +38,9 @@ export const CreateChatRoomBtn = () => {
       ...formvalue,
       createdAt: firebase.database.ServerValue.TIMESTAMP,
       lastMessage:null,
+      admins:{
+        [auth.currentUser.uid]:true
+      }
     };
     try {
       await database.ref('rooms').push(newRoomDate);

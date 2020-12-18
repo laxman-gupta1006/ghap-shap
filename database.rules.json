@@ -8,11 +8,14 @@
     },
     "rooms":{
         ".read": "auth!==null",
-        ".write":"auth!==null",
-          "$user_id":{
+          "$room_id":{
         ".read": "auth!==null",
-        ".write":"auth!==null"
-      }
+        ".write": "!data.exists() || data.child('admins').child(auth.uid).val() == true",
+          },
+     "lastMessage":{
+            ".read":true,
+              ".write":"auth!==null"
+          }
       },
 "messages":{
         ".read": "auth!==null",
@@ -20,19 +23,15 @@
           "$message_id":{
         ".read": "auth!==null",
         ".write":"auth!==null",
-          "lastMessage":{
-            ".read":true,
-              ".write":true
-          }
-      },
+      }
+},
   "status":{
               "$user_id":{
         ".read": "auth!==null",
         ".write":"$user_id===auth.uid"
       }
-  }
-      },
-    ".read": true,
-    ".write":true
+  },
+    ".read": false,
+    ".write":false
   }
 }
