@@ -7,10 +7,26 @@ import { auth } from '../../../misc/Firebase';
 import { ProfileAvatar } from '../../Dashboard/ProfileAvatar';
 import { PresenceDot } from '../../PresenceDot';
 import { IconBtnControl } from './IconBtnControl';
+import { ImgBtnModal } from './ImgBtnModal';
 import { ProfileInfoBtn } from './ProfileInfoBtn';
+/*eslint-disable*/
 
+const renderFile= (file)=>{
+  if(file.contentType.includes('image')){
+    return <div className="height-220">
+      <ImgBtnModal src={file.url} filename={file.name}/>
+    </div>
+  }
+  if(file.contentType.includes('audio')){
+    return <audio controls>
+      <source src={file.url} type="audio/mp3"/>
+      Your browser does not support audio.
+    </audio>
+  }
+  return <a href={file.url}> Download {file.name}</a>
+}
 export const MessageItems = ({ message, handleAdmin,handleDelete }) => {
-  const { author, createdAt, text } = message;
+  const { author, createdAt, text,file } = message;
   const [selfref,isHover] =useHover()
   const isAdmin = useCurrentRoom(v => v.isAdmin);
   const admins = useCurrentRoom(v => v.admins);
@@ -55,11 +71,12 @@ export const MessageItems = ({ message, handleAdmin,handleDelete }) => {
         isVisible={canShowIcons}
         iconName="close"
         tooltip="Delete this message"
-        onClick={()=>handleDelete(message.id)}
+        onClick={()=>handleDelete(message.id,file)}
         />}
       </div>
       <div>
-        <span className="word-breal-all">{text}</span>
+          {text && <span  className="word-breal-all">{text}</span>}
+          {file && renderFile(file)}
       </div>
     </li>
   );
