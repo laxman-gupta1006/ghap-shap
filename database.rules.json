@@ -22,7 +22,7 @@
         ".write":"auth!==null",
           "$message_id":{
         ".read": "auth!==null",
-        ".write":"auth!==null",
+        ".write":"auth!==null"
       }
 },
   "status":{
